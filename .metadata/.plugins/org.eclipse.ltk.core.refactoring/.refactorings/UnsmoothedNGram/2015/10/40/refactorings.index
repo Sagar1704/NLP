@@ -2,3 +2,5 @@
 1443816296901	Encapsulate field 'word'
 1443816305429	Encapsulate field 'counter'
 1443816666833	Encapsulate field 'output'
+1443898421166	Rename type 'NGram'
+1443898501118	Rename method 'calculateProbability'

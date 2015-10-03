@@ -4,6 +4,14 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
+/**
+ * This class takes tokenized corpus as input. It provides the output as 4
+ * files: 1. Unsmoothed Unigram probabilities 2. Unsmoothed Bigram probabilities
+ * 3. Smoothed Unigram probabilities 4. Smoothed Bigram probabilities
+ * 
+ * @author Sagar
+ *
+ */
 public class NGramMain {
 	// HashMap<String, ArrayList<HashMap<String, Integer>>> map = new
 	// HashMap<String, ArrayList<HashMap<String, Integer>>>();
@@ -18,30 +26,34 @@ public class NGramMain {
 		Scanner scan = new Scanner(System.in);
 		char continueChoice = 0;
 
+		System.out.println("This program will calculate the NGram proabilities.");
 		do {
-			System.out.println("What would you like to do?");
-			System.out.println("(1) Calculate unigram probabilities.");
-			System.out.println("(2) Calculate bigram probabilities.");
-			System.out.println("(3) Exit.");
-			System.out.println("Enter your choice::");
+			try {
+				System.out.println("Please do these pre-requisites:");
+				Thread.sleep(2000);
+				System.out.println(
+						"(1) Make sure that you create a file name \"input.txt\" in the same folder as the jar that you executed.");
+				Thread.sleep(1000);
+				System.out.println("(2) The above file should contain the corpus.");
+				Thread.sleep(1000);
+				System.out.println("Are you sure you have the file ready? (y/n)");
 
-			int choice = scan.nextInt();
-			switch (choice) {
-			case 1:
-				break;
-			default:
-				break;
+				continueChoice = scan.next().charAt(0);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
 			}
+
+			ngram.readInput();
 
 		} while (continueChoice != 'y' || continueChoice != 'Y');
 	}
 
 	private void readInput() {
 		try {
-			Scanner scanner = new Scanner(new File("input"));
-
+			Scanner scanner = new Scanner(new File("input.txt"));
 			while (scanner.hasNext()) {
 				scanner.nextLine().trim();
+
 			}
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();

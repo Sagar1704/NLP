@@ -1,0 +1,17 @@
+package sea.nlp.ngram;
+
+import java.util.ArrayList;
+
+public class Unigram extends NGram implements Unsmoothed, Smoothed{
+
+	@Override
+	public void calculateSmoothedProbability() {
+		
+	}
+
+	@Override
+	public void calculateUnsmoothedProbability(ArrayList<NGram> unigrams) {
+		
+	}
+		
+}

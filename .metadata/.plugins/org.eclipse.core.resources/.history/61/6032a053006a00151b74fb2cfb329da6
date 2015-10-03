@@ -1,0 +1,5 @@
+package sea.nlp.ngram;
+
+public interface Smoothed {
+
+}
