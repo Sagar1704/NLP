@@ -1,0 +1,22 @@
+package sea.nlp.ngram;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+
+public class NGramMain {
+
+	public static void main(String[] args) {
+		try {
+			Scanner scanner = new Scanner(new File("input"));
+			
+			while(scanner.hasNext()) {
+				
+			}
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+}

@@ -1,0 +1,9 @@
+package sea.nlp.ngram;
+
+public class UnsmoothedMain {
+
+	public static void main(String[] args) {
+
+	}
+
+}
