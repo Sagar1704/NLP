@@ -1,0 +1,42 @@
+package sea.nlp.ngram;
+
+import java.util.Iterator;
+import java.util.List;
+
+public class Unigram extends NGram{
+	private static int totalUnigramCount;
+	
+	public Unigram() {
+		super(null);
+	}
+	
+	public Unigram(List<String> words) {
+		super(words);
+	}
+
+	public List<NGram> calculateSmoothedProbability(List<NGram> unigrams) {
+		
+		return unigrams;
+	}
+
+	public List<NGram> calculateUnsmoothedProbability(List<NGram> unigrams) {
+		for (Iterator<NGram> unigramIterator = unigrams.iterator(); unigramIterator.hasNext();) {
+			NGram nGram = (NGram) unigramIterator.next();
+			
+			nGram.setProbability(nGram.getCount()/totalUnigramCount);
+		}
+		
+		return unigrams;
+	}
+
+	public int getTotalUnigramCount() {
+		return totalUnigramCount;
+	}
+
+	@Override
+	public String toString() {
+		return getWords().toString() + "\t\t\t" + getProbability();
+	}
+
+	
+}

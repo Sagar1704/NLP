@@ -1,0 +1,6 @@
+1443919850696	Delete element
+1443919856426	Delete element
+1443920955463	Rename method 'generateUnigrams'
+1443921389900	Rename field 'probability'
+1443925051049	Rename method 'calculateUnsmoothedProbability'
+1443925077785	Rename local variable 'unigram'

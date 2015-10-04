@@ -1,42 +1,31 @@
 package sea.nlp.ngram;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Scanner;
+import java.util.List;
 
-public class Unigram extends NGram implements Unsmoothed, Smoothed {
-
-	public Unigram(ArrayList<String> words) {
+public class Unigram extends NGram{
+	static int totalUnigramCount;
+	
+	public Unigram() {
+		super(null);
+	}
+	
+	public Unigram(List<String> words) {
 		super(words);
 	}
 
-	public HashSet<Unigram> generateUnigrams(File input) throws FileNotFoundException {
-		HashSet<Unigram> unigrams = new HashSet<Unigram>();
-		Scanner scanner = new Scanner(input);
-
-		while (scanner.hasNextLine()) {
-			String token = scanner.nextLine();
-			ArrayList<String> tempList = new ArrayList<String>();
-			tempList.add(token);
-			Unigram unigram = new Unigram(tempList);
-			if (!unigrams.contains(unigram)) {
-				unigrams.add(unigram);
-			}
-		}
-
+	public List<NGram> calculateSmoothedProbability(List<NGram> unigrams) {
+		
 		return unigrams;
 	}
 
-	@Override
-	public void calculateSmoothedProbability(ArrayList<NGram> unigrams) {
-
+	public int getTotalUnigramCount() {
+		return totalUnigramCount;
 	}
 
 	@Override
-	public void calculateUnsmoothedProbability(ArrayList<NGram> unigrams) {
-
+	public String toString() {
+		return getWords().toString() + "\t\t\t\t\t" + getUnsmoothedProbability();
 	}
 
+	
 }

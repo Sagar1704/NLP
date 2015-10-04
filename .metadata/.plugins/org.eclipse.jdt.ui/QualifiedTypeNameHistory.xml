@@ -3,4 +3,12 @@
 <fullyQualifiedTypeName name="java.io.File"/>
 <fullyQualifiedTypeName name="java.lang.StringBuilder"/>
 <fullyQualifiedTypeName name="sea.nlp.ngram.NGramMain"/>
+<fullyQualifiedTypeName name="java.lang.Thread"/>
+<fullyQualifiedTypeName name="java.lang.ArrayIndexOutOfBoundsException"/>
+<fullyQualifiedTypeName name="sea.nlp.ngram.NGram"/>
+<fullyQualifiedTypeName name="sea.nlp.ngram.Unsmoothed"/>
+<fullyQualifiedTypeName name="sea.nlp.ngram.Smoothed"/>
+<fullyQualifiedTypeName name="java.util.HashSet"/>
+<fullyQualifiedTypeName name="java.util.ArrayList"/>
+<fullyQualifiedTypeName name="sea.nlp.ngram.Unigram"/>
 </qualifiedTypeNameHistroy>

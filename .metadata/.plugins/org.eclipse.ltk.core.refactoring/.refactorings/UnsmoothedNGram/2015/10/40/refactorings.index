@@ -4,3 +4,4 @@
 1443816666833	Encapsulate field 'output'
 1443898421166	Rename type 'NGram'
 1443898501118	Rename method 'calculateProbability'
+1443915457013	Encapsulate field 'totalUnigramCount'

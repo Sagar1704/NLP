@@ -1,0 +1,8 @@
+package sea.nlp.ngram;
+
+import java.util.List;
+import java.util.ArrayList;
+
+public interface Unsmoothed {
+	ArrayList<NGram> calculateUnsmoothedProbability(List<NGram> nGrams);
+}
