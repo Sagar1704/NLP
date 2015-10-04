@@ -3,7 +3,7 @@ package sea.nlp.ngram;
 import java.util.List;
 
 public class Unigram extends NGram{
-	static int totalUnigramCount;
+	static int totalUnigramCount = 0;
 	
 	public Unigram() {
 		super(null);

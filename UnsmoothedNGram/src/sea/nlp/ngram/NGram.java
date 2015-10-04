@@ -7,6 +7,7 @@ public abstract class NGram {
 	private List<String> words;
 	private int count;
 	private float unsmoothedProbability;
+	private float smoothedProbability;
 
 	public NGram(List<String> words) {
 		super();
@@ -65,6 +66,14 @@ public abstract class NGram {
 		} else if (!words.equals(other.words))
 			return false;
 		return true;
+	}
+
+	public float getSmoothedProbability() {
+		return smoothedProbability;
+	}
+
+	public void setSmoothedProbability(float smoothedProbability) {
+		this.smoothedProbability = smoothedProbability;
 	}
 
 }

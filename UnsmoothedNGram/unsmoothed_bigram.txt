@@ -1,0 +1,17 @@
+[An, Apple]					1.0
+[Apple, is]					0.5
+[Apple, a]					0.5
+[a, day]					1.0
+[apple., Apple]					1.0
+[day, keeps]					1.0
+[doctor, away.]					1.0
+[eat, apple.]					1.0
+[for, health.]					1.0
+[good, for]					1.0
+[health., An]					1.0
+[i, want]					1.0
+[is, good]					1.0
+[keeps, the]					1.0
+[the, doctor]					1.0
+[to, eat]					1.0
+[want, to]					1.0

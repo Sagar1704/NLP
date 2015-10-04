@@ -4,7 +4,12 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.ListIterator;
+import java.util.Map;
 import java.util.Scanner;
 
 /**
@@ -49,15 +54,92 @@ public class NGramMain {
 		 */
 
 		try {
+			// Unsmoothed Unigram
 			ngram.generateUnigramCounts();
 			ngram.calculateUnsmoothedUnigramProbability();
 
+			Collections.sort(ngram.unigrams, new Comparator<Unigram>() {
+
+				@Override
+				public int compare(Unigram o1, Unigram o2) {
+					String unigram1 = o1.getWords().get(0);
+					String unigram2 = o2.getWords().get(0);
+					
+					return unigram1.compareTo(unigram2);
+				}
+			});
+			
 			PrintWriter writer = new PrintWriter("unsmoothed_unigram.txt");
 			for (Unigram unigram : ngram.unigrams) {
 				writer.println(unigram.toString());
 			}
 
 			writer.close();
+
+			// Unsmoothed Bigram
+			ngram.generateBigramCounts();
+			ngram.calculateUnsmoothedBigramProbability();
+
+			Collections.sort(ngram.bigrams, new Comparator<Bigram>() {
+
+				@Override
+				public int compare(Bigram o1, Bigram o2) {
+					String bigram1 = o1.getWords().get(0);
+					String bigram2 = o2.getWords().get(0);
+					
+					return bigram1.compareTo(bigram2);
+				}
+			});
+			
+			writer = new PrintWriter("unsmoothed_bigram.txt");
+			for (Bigram bigram : ngram.bigrams) {
+				writer.println(bigram.toString());
+			}
+
+			writer.close();
+
+			// Smoothed Unigram
+			ngram.calculateSmoothedUnigramProbabilities();
+			
+			Collections.sort(ngram.unigrams, new Comparator<Unigram>() {
+
+				@Override
+				public int compare(Unigram o1, Unigram o2) {
+					String unigram1 = o1.getWords().get(0);
+					String unigram2 = o2.getWords().get(0);
+					
+					return unigram1.compareTo(unigram2);
+				}
+			});
+			
+			writer = new PrintWriter("smoothed_unigram.txt");
+			for (Unigram unigram : ngram.unigrams) {
+				writer.println(unigram.getWords() + "\t\t\t\t\t" + unigram.getSmoothedProbability());
+			}
+
+			writer.close();
+
+			// Smoothed Bigram
+			ngram.calculateSmoothedBigramProbabilities();
+			
+			Collections.sort(ngram.bigrams, new Comparator<Bigram>() {
+
+				@Override
+				public int compare(Bigram o1, Bigram o2) {
+					String bigram1 = o1.getWords().get(0);
+					String bigram2 = o2.getWords().get(0);
+					
+					return bigram1.compareTo(bigram2);
+				}
+			});
+
+			writer = new PrintWriter("smoothed_bigram.txt");
+			for (Bigram bigram : ngram.bigrams) {
+				writer.println(bigram.getWords() + "\t\t\t\t\t" + bigram.getSmoothedProbability());
+			}
+
+			writer.close();
+
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
@@ -88,29 +170,41 @@ public class NGramMain {
 		}
 	}
 
+	private void calculateUnsmoothedUnigramProbability() {
+		for (int index = 0; index < unigrams.size(); index++) {
+			Unigram unigram = unigrams.get(index);
+			int count = unigram.getCount();
+			float probability = (float) count / Unigram.totalUnigramCount;
+			unigram.setUnsmoothedProbability(probability);
+			unigrams.set(index, unigram);
+		}
+	}
+
 	private void generateBigramCounts() throws FileNotFoundException {
-		unigrams = new ArrayList<Unigram>();
+		bigrams = new ArrayList<Bigram>();
 		Scanner scanner = new Scanner(input);
-		boolean first = true;
+		ArrayList<String> tempList = new ArrayList<String>();
 
 		try {
+			String token1 = "";
+			if (scanner.hasNextLine()) {
+				token1 = scanner.nextLine();
+			}
+
 			while (scanner.hasNextLine()) {
-				String token = scanner.nextLine();
-				ArrayList<String> tempList = new ArrayList<String>();
-				if (first) {
-					first = false;
-					tempList.add(token);
+				String token2 = scanner.nextLine();
+
+				tempList = new ArrayList<String>();
+				tempList.add(token1);
+				token1 = token2;
+				tempList.add(token2);
+
+				Bigram bigram = new Bigram(tempList);
+				if (!bigrams.contains(bigram)) {
+					bigrams.add(bigram);
 				} else {
-					first = true;
-					Bigram.totalBigramCount++;
-					tempList.add(token);
-					Bigram bigram = new Bigram(tempList);
-					if (!bigrams.contains(bigram)) {
-						bigrams.add(bigram);
-					} else {
-						bigram = bigrams.get(bigrams.indexOf(bigram));
-						bigram.setCount(bigram.getCount() + 1);
-					}
+					bigram = bigrams.get(bigrams.indexOf(bigram));
+					bigram.setCount(bigram.getCount() + 1);
 				}
 			}
 		} finally {
@@ -121,20 +215,130 @@ public class NGramMain {
 	private void calculateUnsmoothedBigramProbability() {
 		for (int index = 0; index < bigrams.size(); index++) {
 			Bigram bigram = bigrams.get(index);
+
 			int count = bigram.getCount();
-			float probability = (float) count / Unigram.totalUnigramCount;
+
+			String unigramWord = bigram.getWords().get(0);
+			ArrayList<String> tempList = new ArrayList<String>();
+			tempList.add(unigramWord);
+			Unigram unigram = new Unigram(tempList);
+
+			int unigramCount = unigrams.get(unigrams.indexOf(unigram)).getCount();
+
+			float probability = (float) count / unigramCount;
 			bigram.setUnsmoothedProbability(probability);
 			bigrams.set(index, bigram);
 		}
 	}
 
-	private void calculateUnsmoothedUnigramProbability() {
-		for (int index = 0; index < unigrams.size(); index++) {
-			Unigram unigram = unigrams.get(index);
-			int count = unigram.getCount();
-			float probability = (float) count / Unigram.totalUnigramCount;
-			unigram.setUnsmoothedProbability(probability);
-			unigrams.set(index, unigram);
+	private void calculateSmoothedUnigramProbabilities() {
+		Collections.sort(unigrams, new Comparator<Unigram>() {
+
+			@Override
+			public int compare(Unigram o1, Unigram o2) {
+				Integer count1 = (Integer) o1.getCount();
+				Integer count2 = (Integer) o2.getCount();
+
+				return count1.compareTo(count2);
+			}
+		});
+
+		Map<Integer, ArrayList<Unigram>> countMap = new HashMap<Integer, ArrayList<Unigram>>();
+		for (Unigram unigram : unigrams) {
+
+			if (countMap.containsKey(unigram.getCount())) {
+				ArrayList<Unigram> unigramMapArray = countMap.get(unigram.getCount());
+				unigramMapArray.add(unigram);
+			} else {
+				ArrayList<Unigram> unigramMapArray = new ArrayList<Unigram>();
+				unigramMapArray.add(unigram);
+				countMap.put(unigram.getCount(), unigramMapArray);
+			}
+		}
+
+		ListIterator<Unigram> unigramIterator = unigrams.listIterator();
+		for (Integer count : countMap.keySet()) {
+			int Nc = countMap.get(count).size();
+			int Nc1 = 0;
+			if (countMap.containsKey(count + 1))
+				Nc1 = countMap.get(count + 1).size();
+			float probability = (((float) ((count + 1) * Nc1) / Nc) / Unigram.totalUnigramCount);
+
+			while (unigramIterator.hasNext()) {
+				Unigram unigram = (Unigram) unigramIterator.next();
+
+				if (unigram.getCount() == count) {
+					unigram.setSmoothedProbability(probability);
+				} else {
+					unigramIterator.previous();
+					break;
+				}
+			}
+		}
+	}
+
+	private void calculateSmoothedBigramProbabilities() {
+		generateZeroBigrams();
+
+		Collections.sort(bigrams, new Comparator<Bigram>() {
+
+			@Override
+			public int compare(Bigram o1, Bigram o2) {
+				Integer count1 = (Integer) o1.getCount();
+				Integer count2 = (Integer) o2.getCount();
+
+				return count1.compareTo(count2);
+			}
+		});
+
+		Map<Integer, ArrayList<Bigram>> countMap = new HashMap<Integer, ArrayList<Bigram>>();
+		for (Bigram bigram : bigrams) {
+
+			if (countMap.containsKey(bigram.getCount())) {
+				ArrayList<Bigram> bigramMapArray = countMap.get(bigram.getCount());
+				bigramMapArray.add(bigram);
+			} else {
+				ArrayList<Bigram> bigramMapArray = new ArrayList<Bigram>();
+				bigramMapArray.add(bigram);
+				countMap.put(bigram.getCount(), bigramMapArray);
+			}
+		}
+
+		ListIterator<Bigram> bigramIterator = bigrams.listIterator();
+		for (Integer count : countMap.keySet()) {
+			int Nc = countMap.get(count).size();
+			int Nc1 = 0;
+			if (countMap.containsKey(count + 1))
+				Nc1 = countMap.get(count + 1).size();
+			float temp = (float) (count + 1) * Nc1 / Nc;
+			float probability = temp / (Unigram.totalUnigramCount - 1);
+
+			while (bigramIterator.hasNext()) {
+				Bigram bigram = (Bigram) bigramIterator.next();
+
+				if (bigram.getCount() == count) {
+					bigram.setSmoothedProbability(probability);
+				} else {
+					bigramIterator.previous();
+					break;
+				}
+			}
+		}
+	}
+
+	private void generateZeroBigrams() {
+		for (Unigram unigram : unigrams) {
+			for (Unigram unigram1 : unigrams) {
+				ArrayList<String> words = new ArrayList<String>();
+				words.add(unigram.getWords().get(0));
+				words.add(unigram1.getWords().get(0));
+				Bigram bigram = new Bigram(words);
+				bigram.setCount(0);
+				
+				if (!bigrams.contains(bigram)) {
+					bigrams.add(bigram);
+				}
+			}
 		}
 	}
 
