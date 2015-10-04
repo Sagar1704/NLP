@@ -2,24 +2,15 @@ package sea.nlp.ngram;
 
 import java.util.List;
 
-public class Unigram extends NGram{
+public class Unigram extends NGram {
 	static int totalUnigramCount = 0;
-	
+
 	public Unigram() {
 		super(null);
 	}
-	
+
 	public Unigram(List<String> words) {
 		super(words);
-	}
-
-	public List<NGram> calculateSmoothedProbability(List<NGram> unigrams) {
-		
-		return unigrams;
-	}
-
-	public int getTotalUnigramCount() {
-		return totalUnigramCount;
 	}
 
 	@Override
@@ -27,5 +18,4 @@ public class Unigram extends NGram{
 		return getWords().toString() + "\t\t\t\t\t" + getUnsmoothedProbability();
 	}
 
-	
 }

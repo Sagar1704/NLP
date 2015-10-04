@@ -3,6 +3,13 @@ package sea.nlp.ngram;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This is a generic NGram class with, list of words, The NGram count,
+ * unsmoothed probability and smoothed probability
+ * 
+ * @author Sagar
+ *
+ */
 public abstract class NGram {
 	private List<String> words;
 	private int count;

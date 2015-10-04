@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Map;
@@ -21,40 +22,22 @@ import java.util.Scanner;
  *
  */
 public class NGramMain {
-	private StringBuilder output;
 	private List<Unigram> unigrams;
 	private List<Bigram> bigrams;
 
 	private static File input = new File("input.txt");
 
-	public NGramMain() {
-		setOutput(new StringBuilder());
-	}
-
 	public static void main(String[] args) {
 		NGramMain ngram = new NGramMain();
-		/*
-		 * Scanner scan = null; char continueChoice = 0;
-		 * 
-		 * System.out.println(
-		 * "This program will calculate the NGram proabilities."); do { try {
-		 * scan = new Scanner(System.in);
-		 * 
-		 * System.out.println("Please do these pre-requisites:");
-		 * Thread.sleep(2000); System.out.println(
-		 * "(1) Make sure that you create a file name \"input.txt\" in the same folder as the jar that you executed."
-		 * ); Thread.sleep(1000); System.out.println(
-		 * "(2) The above file should contain the corpus."); Thread.sleep(1000);
-		 * System.out.println("Are you sure you have the file ready? (y/n)");
-		 * 
-		 * continueChoice = scan.next().charAt(0); } catch (InterruptedException
-		 * e) { e.printStackTrace(); } finally { scan.close(); }
-		 * 
-		 * } while (continueChoice == 'y' || continueChoice == 'Y');
-		 */
+		System.out.println("***********NGram************");
+		System.out.println("Press enter when you are ready with the input file.");
+		Scanner scan = new Scanner(System.in);
+		scan.nextLine();
 
 		try {
 			// Unsmoothed Unigram
+			System.out.println("\nGenerating Unsmoothed Unigram probabilities.");
+			Thread.sleep(2000);
 			ngram.generateUnigramCounts();
 			ngram.calculateUnsmoothedUnigramProbability();
 
@@ -64,11 +47,11 @@ public class NGramMain {
 				public int compare(Unigram o1, Unigram o2) {
 					String unigram1 = o1.getWords().get(0);
 					String unigram2 = o2.getWords().get(0);
-					
-					return unigram1.compareTo(unigram2);
+
+					return unigram1.toLowerCase().compareTo(unigram2.toLowerCase());
 				}
 			});
-			
+
 			PrintWriter writer = new PrintWriter("unsmoothed_unigram.txt");
 			for (Unigram unigram : ngram.unigrams) {
 				writer.println(unigram.toString());
@@ -76,7 +59,12 @@ public class NGramMain {
 
 			writer.close();
 
+			System.out.println("Please check \"unsmoothed_unigram.txt\"");
+			Thread.sleep(1000);
+			
 			// Unsmoothed Bigram
+			System.out.println("\nGenerating Unsmoothed Bigram probabilities.");
+			Thread.sleep(2000);
 			ngram.generateBigramCounts();
 			ngram.calculateUnsmoothedBigramProbability();
 
@@ -84,13 +72,13 @@ public class NGramMain {
 
 				@Override
 				public int compare(Bigram o1, Bigram o2) {
-					String bigram1 = o1.getWords().get(0);
-					String bigram2 = o2.getWords().get(0);
-					
-					return bigram1.compareTo(bigram2);
+					String bigram1 = o1.getWords().get(0) + o1.getWords().get(1);
+					String bigram2 = o2.getWords().get(0) + o2.getWords().get(1);
+
+					return bigram1.toLowerCase().compareTo(bigram2.toLowerCase());
 				}
 			});
-			
+
 			writer = new PrintWriter("unsmoothed_bigram.txt");
 			for (Bigram bigram : ngram.bigrams) {
 				writer.println(bigram.toString());
@@ -98,20 +86,25 @@ public class NGramMain {
 
 			writer.close();
 
-			// Smoothed Unigram
-			ngram.calculateSmoothedUnigramProbabilities();
+			System.out.println("Please check \"unsmoothed_bigram.txt\"");
+			Thread.sleep(1000);
 			
+			// Smoothed Unigram
+			System.out.println("\nGenerating Smoothed Unigram probabilities.");
+			Thread.sleep(2000);
+			ngram.calculateSmoothedUnigramProbabilities();
+
 			Collections.sort(ngram.unigrams, new Comparator<Unigram>() {
 
 				@Override
 				public int compare(Unigram o1, Unigram o2) {
 					String unigram1 = o1.getWords().get(0);
 					String unigram2 = o2.getWords().get(0);
-					
-					return unigram1.compareTo(unigram2);
+
+					return unigram1.toLowerCase().compareTo(unigram2.toLowerCase());
 				}
 			});
-			
+
 			writer = new PrintWriter("smoothed_unigram.txt");
 			for (Unigram unigram : ngram.unigrams) {
 				writer.println(unigram.getWords() + "\t\t\t\t\t" + unigram.getSmoothedProbability());
@@ -119,17 +112,23 @@ public class NGramMain {
 
 			writer.close();
 
-			// Smoothed Bigram
-			ngram.calculateSmoothedBigramProbabilities();
+			System.out.println("Please check \"smoothed_unigram.txt\"");
+			Thread.sleep(1000);
 			
+			// Smoothed Bigram
+			System.out.println("\nGenerating Smoothed Bigram probabilities.");
+			Thread.sleep(2000);
+			
+			ngram.calculateSmoothedBigramProbabilities();
+
 			Collections.sort(ngram.bigrams, new Comparator<Bigram>() {
 
 				@Override
 				public int compare(Bigram o1, Bigram o2) {
 					String bigram1 = o1.getWords().get(0);
 					String bigram2 = o2.getWords().get(0);
-					
-					return bigram1.compareTo(bigram2);
+
+					return bigram1.toLowerCase().compareTo(bigram2.toLowerCase());
 				}
 			});
 
@@ -140,8 +139,14 @@ public class NGramMain {
 
 			writer.close();
 
+			System.out.println("Please check \"smoothed_bigram.txt\"");
+			System.out.println("\n**************Done***************");
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		} finally {
+			scan.close();
 		}
 
 	}
@@ -155,14 +160,16 @@ public class NGramMain {
 				Unigram.totalUnigramCount++;
 
 				String token = scanner.nextLine();
-				ArrayList<String> tempList = new ArrayList<String>();
-				tempList.add(token);
-				Unigram unigram = new Unigram(tempList);
-				if (!unigrams.contains(unigram)) {
-					unigrams.add(unigram);
-				} else {
-					unigram = unigrams.get(unigrams.indexOf(unigram));
-					unigram.setCount(unigram.getCount() + 1);
+				if (!token.isEmpty()) {
+					ArrayList<String> tempList = new ArrayList<String>();
+					tempList.add(token);
+					Unigram unigram = new Unigram(tempList);
+					if (!unigrams.contains(unigram)) {
+						unigrams.add(unigram);
+					} else {
+						unigram = unigrams.get(unigrams.indexOf(unigram));
+						unigram.setCount(unigram.getCount() + 1);
+					}
 				}
 			}
 		} finally {
@@ -187,13 +194,16 @@ public class NGramMain {
 
 		try {
 			String token1 = "";
-			if (scanner.hasNextLine()) {
+			while (scanner.hasNextLine()) {
 				token1 = scanner.nextLine();
+				if (!token1.isEmpty())
+					break;
 			}
 
 			while (scanner.hasNextLine()) {
 				String token2 = scanner.nextLine();
-
+				if (token2.isEmpty())
+					continue;
 				tempList = new ArrayList<String>();
 				tempList.add(token1);
 				token1 = token2;
@@ -310,9 +320,14 @@ public class NGramMain {
 			int Nc1 = 0;
 			if (countMap.containsKey(count + 1))
 				Nc1 = countMap.get(count + 1).size();
-			float temp = (float) (count + 1) * Nc1 / Nc;
-			float probability = temp / (Unigram.totalUnigramCount - 1);
 
+			float probability = 0.0f;
+			if (count == 0) {
+				probability = (float) Nc1 / (Unigram.totalUnigramCount - 1);
+			} else {
+				float temp = (float) (count + 1) * Nc1 / Nc;
+				probability = temp / (Unigram.totalUnigramCount - 1);
+			}
 			while (bigramIterator.hasNext()) {
 				Bigram bigram = (Bigram) bigramIterator.next();
 
@@ -327,27 +342,29 @@ public class NGramMain {
 	}
 
 	private void generateZeroBigrams() {
-		for (Unigram unigram : unigrams) {
-			for (Unigram unigram1 : unigrams) {
+		ArrayList<Bigram> tempBigrams = new ArrayList<Bigram>();
+		for (Iterator<Unigram> outerIterator = unigrams.iterator(); outerIterator.hasNext();) {
+			Unigram outerUnigram = (Unigram) outerIterator.next();
+
+			for (Iterator<Unigram> innerIterator = unigrams.iterator(); innerIterator.hasNext();) {
+				Unigram innerUnigram = (Unigram) innerIterator.next();
 				ArrayList<String> words = new ArrayList<String>();
-				words.add(unigram.getWords().get(0));
-				words.add(unigram1.getWords().get(0));
+				words.add(outerUnigram.getWords().get(0));
+				words.add(innerUnigram.getWords().get(0));
 				Bigram bigram = new Bigram(words);
 				bigram.setCount(0);
-				
-				if (!bigrams.contains(bigram)) {
-					bigrams.add(bigram);
-				}
+
+				tempBigrams.add(bigram);
 			}
 		}
-	}
-
-	public StringBuilder getOutput() {
-		return output;
-	}
-
-	public void setOutput(StringBuilder output) {
-		this.output = output;
+		for (Bigram bigram : bigrams) {
+			if (tempBigrams.contains(bigram)) {
+				Bigram temp = tempBigrams.get(tempBigrams.indexOf(bigram));
+				temp.setCount(bigram.getCount());
+				temp.setUnsmoothedProbability(bigram.getUnsmoothedProbability());
+			}
+		}
+		bigrams = tempBigrams;
 	}
 
 }
