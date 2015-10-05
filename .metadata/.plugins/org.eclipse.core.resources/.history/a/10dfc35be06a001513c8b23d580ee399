@@ -1,0 +1,27 @@
+package sea.nlp.ngram;
+
+import java.util.List;
+
+public class Unigram extends NGram implements Comparable<Unigram> {
+	static int totalUnigramCount = 0;
+
+	public Unigram() {
+		super(null);
+	}
+
+	public Unigram(List<String> words) {
+		super(words);
+	}
+
+	@Override
+	public String toString() {
+		return getWords().get(0) + "\t\t\t\t\t" + getUnsmoothedProbability();
+	}
+
+	@Override
+	public int compareTo(Unigram o) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+}
