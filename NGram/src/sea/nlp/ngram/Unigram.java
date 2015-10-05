@@ -2,6 +2,12 @@ package sea.nlp.ngram;
 
 import java.util.List;
 
+/**
+ * Unigram
+ * 
+ * @author Sagar
+ *
+ */
 public class Unigram extends NGram implements Comparable<Unigram> {
 	static int totalUnigramCount = 0;
 

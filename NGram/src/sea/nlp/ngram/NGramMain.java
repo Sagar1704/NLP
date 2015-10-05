@@ -1,7 +1,10 @@
 package sea.nlp.ngram;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -11,6 +14,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Map;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 /**
@@ -30,96 +34,104 @@ public class NGramMain {
 	public static void main(String[] args) {
 		NGramMain ngram = new NGramMain();
 		System.out.println("***********NGram************");
-		System.out.println("Press enter when you are ready with the input file.");
-		Scanner scan = new Scanner(System.in);
-		scan.nextLine();
+		while (true) {
+			Unigram.totalUnigramCount = 0;
+			try {
+				System.out.println("Press enter when you are ready with the input file.");
+				new BufferedReader(new InputStreamReader(System.in)).readLine();
 
-		try {
-			// Unsmoothed Unigram
-			System.out.println("\nGenerating Unsmoothed Unigram probabilities.");
-			Thread.sleep(2000);
-			ngram.generateUnigramCounts();
-			ngram.calculateUnsmoothedUnigramProbability();
+				// Unsmoothed Unigram
+				System.out.println("\nGenerating Unsmoothed Unigram probabilities.");
+				Thread.sleep(2000);
+				ngram.generateUnigramCounts();
+				ngram.calculateUnsmoothedUnigramProbability();
 
-			Collections.sort(ngram.unigrams);
-			PrintWriter writer = new PrintWriter("unsmoothed_unigram.txt");
-			for (Unigram unigram : ngram.unigrams) {
-				writer.println(unigram.toString() + unigram.getUnsmoothedProbability());
-			}
-			writer.close();
-
-			System.out.println("Please check \"unsmoothed_unigram.txt\"");
-			Thread.sleep(1000);
-			
-			// Unsmoothed Bigram
-			System.out.println("\nGenerating Unsmoothed Bigram probabilities.");
-			Thread.sleep(2000);
-			ngram.generateBigramCounts();
-			ngram.calculateUnsmoothedBigramProbability();
-
-			Collections.sort(ngram.bigrams);
-			writer = new PrintWriter("unsmoothed_bigram.txt");
-			for (Bigram bigram : ngram.bigrams) {
-				writer.println(bigram.toString() + bigram.getUnsmoothedProbability());
-			}
-			writer.close();
-
-			System.out.println("Please check \"unsmoothed_bigram.txt\"");
-			Thread.sleep(1000);
-			
-			// Smoothed Unigram
-			System.out.println("\nGenerating Smoothed Unigram probabilities.");
-			Thread.sleep(2000);
-			ngram.calculateSmoothedUnigramProbabilities();
-
-			Collections.sort(ngram.unigrams);
-
-			writer = new PrintWriter("smoothed_unigram.txt");
-			for (Unigram unigram : ngram.unigrams) {
-				writer.println(unigram.toString() + "\t\t\t\t\t" + unigram.getSmoothedProbability());
-			}
-
-			writer.close();
-
-			System.out.println("Please check \"smoothed_unigram.txt\"");
-			Thread.sleep(1000);
-			
-			// Smoothed Bigram
-			System.out.println("\nGenerating Smoothed Bigram probabilities.");
-			Thread.sleep(2000);
-			
-			ngram.calculateSmoothedBigramProbabilities();
-
-			Collections.sort(ngram.bigrams, new Comparator<Bigram>() {
-
-				@Override
-				public int compare(Bigram o1, Bigram o2) {
-					String bigram1 = o1.getWords().get(0);
-					String bigram2 = o2.getWords().get(0);
-
-					return bigram1.toLowerCase().compareTo(bigram2.toLowerCase());
+				Collections.sort(ngram.unigrams);
+				PrintWriter writer = new PrintWriter("unsmoothed_unigram.txt");
+				for (Unigram unigram : ngram.unigrams) {
+					writer.println(unigram.toString() + unigram.getUnsmoothedProbability());
 				}
-			});
+				writer.close();
 
-			writer = new PrintWriter("smoothed_bigram.txt");
-			for (Bigram bigram : ngram.bigrams) {
-				writer.println(bigram.toString() + "\t\t\t\t\t" + bigram.getSmoothedProbability());
+				System.out.println("Please check \"unsmoothed_unigram.txt\"");
+				Thread.sleep(1000);
+
+				// Unsmoothed Bigram
+				System.out.println("\nGenerating Unsmoothed Bigram probabilities.");
+				Thread.sleep(2000);
+				ngram.generateBigramCounts();
+				ngram.calculateUnsmoothedBigramProbability();
+
+				Collections.sort(ngram.bigrams);
+				writer = new PrintWriter("unsmoothed_bigram.txt");
+				for (Bigram bigram : ngram.bigrams) {
+					writer.println(bigram.toString() + bigram.getUnsmoothedProbability());
+				}
+				writer.close();
+
+				System.out.println("Please check \"unsmoothed_bigram.txt\"");
+				Thread.sleep(1000);
+
+				// Smoothed Unigram
+				System.out.println("\nGenerating Smoothed Unigram probabilities.");
+				Thread.sleep(2000);
+				ngram.calculateSmoothedUnigramProbabilities();
+
+				Collections.sort(ngram.unigrams);
+
+				writer = new PrintWriter("smoothed_unigram.txt");
+				for (Unigram unigram : ngram.unigrams) {
+					writer.println(unigram.toString() + "\t\t\t\t\t" + unigram.getSmoothedProbability());
+				}
+
+				writer.close();
+
+				System.out.println("Please check \"smoothed_unigram.txt\"");
+				Thread.sleep(1000);
+
+				// Smoothed Bigram
+				System.out.println("\nGenerating Smoothed Bigram probabilities.");
+				Thread.sleep(2000);
+
+				ngram.calculateSmoothedBigramProbabilities();
+
+				Collections.sort(ngram.bigrams);
+
+				writer = new PrintWriter("smoothed_bigram.txt");
+				for (Bigram bigram : ngram.bigrams) {
+					writer.println(bigram.toString() + "\t\t\t\t\t" + bigram.getSmoothedProbability());
+				}
+
+				writer.close();
+
+				System.out.println("Please check \"smoothed_bigram.txt\"");
+				System.out.println("\n**************Done***************");
+
+				System.out.println("Close the window to exit!");
+				new BufferedReader(new InputStreamReader(System.in)).readLine();
+
+			} catch (FileNotFoundException e) {
+
+				System.out.println("\nThe file named \"input.txt\" cannot be found in the path."
+						+ "\n\nPlease make sure the file is present in the directory where you are running the \"NGram.jar\" file.\n");
+
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			} catch (NoSuchElementException e) {
+				// Do Nothing
+			} catch (IOException e) {
+				e.printStackTrace();
+			} finally {
+				
 			}
-
-			writer.close();
-
-			System.out.println("Please check \"smoothed_bigram.txt\"");
-			System.out.println("\n**************Done***************");
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		} finally {
-			scan.close();
 		}
-
 	}
 
+	/**
+	 * Generate counts for Unigram
+	 * 
+	 * @throws FileNotFoundException
+	 */
 	private void generateUnigramCounts() throws FileNotFoundException {
 
 		unigrams = new ArrayList<Unigram>();
@@ -163,17 +175,17 @@ public class NGramMain {
 
 		try {
 			String token1 = "";
-			if (scanner.hasNextLine()) {
+			while (scanner.hasNextLine()) {
 				token1 = scanner.nextLine();
-//				if (!token1.isEmpty())
-//					break;
-			} else
-				return;
+				if (!token1.isEmpty())
+					break;
+
+			}
 
 			while (scanner.hasNextLine()) {
 				String token2 = scanner.nextLine();
-//				if (token2.isEmpty())
-//					continue;
+				if (token2.isEmpty())
+					continue;
 				tempList = new ArrayList<String>();
 				tempList.add(token1);
 				token1 = token2;

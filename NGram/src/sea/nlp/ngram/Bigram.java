@@ -2,6 +2,12 @@ package sea.nlp.ngram;
 
 import java.util.List;
 
+/**
+ * Bigram
+ * 
+ * @author Sagar
+ *
+ */
 public class Bigram extends NGram implements Comparable<Bigram> {
 
 	public Bigram(List<String> words) {
@@ -18,9 +24,6 @@ public class Bigram extends NGram implements Comparable<Bigram> {
 		String bigram1 = this.getWords().get(0) + this.getWords().get(1);
 		String bigram2 = o.getWords().get(0) + o.getWords().get(1);
 
-//		String bigram1 = this.getWords().get(0);
-//		String bigram2 = o.getWords().get(0);
-		
 		return bigram1.compareTo(bigram2);
 	}
 }
