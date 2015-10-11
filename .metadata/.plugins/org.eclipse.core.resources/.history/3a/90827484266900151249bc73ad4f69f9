@@ -1,9 +1,0 @@
-package sea.nlp.ngram;
-
-public class NGramMain {
-
-	public static void main(String[] args) {
-		Scanner scanner = new Scanner();
-	}
-
-}

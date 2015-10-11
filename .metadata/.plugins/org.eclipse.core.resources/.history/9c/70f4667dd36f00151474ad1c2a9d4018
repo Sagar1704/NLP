@@ -1,0 +1,25 @@
+package sea.nlp.pos;
+
+/**
+ * This is a Word to Tag Mapper
+ * 
+ * @author Sagar
+ *
+ */
+public class TagCounter {
+	private String tag;
+
+	public TagCounter(String tag) {
+		this.tag = tag;
+		this.
+	}
+
+	public String getTag() {
+		return tag;
+	}
+
+	public void setTag(String tag) {
+		this.tag = tag;
+	}
+
+}

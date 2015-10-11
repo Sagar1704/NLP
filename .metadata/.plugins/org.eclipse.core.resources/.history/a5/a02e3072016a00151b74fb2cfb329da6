@@ -1,5 +1,0 @@
-package sea.nlp.ngram;
-
-public interface Smoothed {
-	void calculateSmoothedProbability();
-}

@@ -1,7 +1,0 @@
-package sea.nlp.ngram;
-
-import java.util.List;
-
-public interface Smoothed {
-	List<NGram> calculateSmoothedProbability(List<NGram> nGrams);
-}
