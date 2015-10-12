@@ -55,4 +55,10 @@ public class TagCounter {
 			return false;
 		return true;
 	}
+
+	@Override
+	public String toString() {
+		return "TagCounter [tag=" + tag + "]";
+	}
+	
 }

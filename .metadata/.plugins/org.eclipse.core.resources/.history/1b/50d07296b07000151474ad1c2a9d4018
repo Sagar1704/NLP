@@ -1,0 +1,5 @@
+package sea.nlp.comparator;
+
+public class ErrorCounter {
+
+}

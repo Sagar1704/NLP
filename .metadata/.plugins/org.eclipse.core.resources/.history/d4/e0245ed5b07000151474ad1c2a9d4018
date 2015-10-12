@@ -1,0 +1,14 @@
+package sea.nlp.comparator;
+
+import java.util.Comparator;
+
+import sea.nlp.pos.WordError;
+
+public class ErrorCounter implements Comparator<WordError>{
+
+	@Override
+	public int compare(WordError word1, WordError word2) {
+		return 0;
+	}
+
+}
