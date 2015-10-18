@@ -1,0 +1,8 @@
+package sea.nlp.viterbi;
+
+import java.util.ArrayList;
+
+public class Trellis {
+	private ArrayList<TrellisState> trellisStates;
+	
+}

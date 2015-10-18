@@ -2,7 +2,6 @@
 <qualifiedTypeNameHistroy>
 <fullyQualifiedTypeName name="java.lang.StringBuilder"/>
 <fullyQualifiedTypeName name="sea.nlp.ngram.NGramMain"/>
-<fullyQualifiedTypeName name="java.lang.ArrayIndexOutOfBoundsException"/>
 <fullyQualifiedTypeName name="sea.nlp.ngram.NGram"/>
 <fullyQualifiedTypeName name="sea.nlp.ngram.Unsmoothed"/>
 <fullyQualifiedTypeName name="sea.nlp.ngram.Smoothed"/>
@@ -29,7 +28,6 @@
 <fullyQualifiedTypeName name="sea.nlp.comparator.ErrorCounter"/>
 <fullyQualifiedTypeName name="java.util.regex.Pattern"/>
 <fullyQualifiedTypeName name="java.util.HashMap"/>
-<fullyQualifiedTypeName name="java.util.ArrayList"/>
 <fullyQualifiedTypeName name="org.omg.IOP.TAG_ORB_TYPE"/>
 <fullyQualifiedTypeName name="sea.nlp.pos.TagCounter"/>
 <fullyQualifiedTypeName name="java.util.TreeSet"/>
@@ -37,4 +35,13 @@
 <fullyQualifiedTypeName name="sea.nlp.pos.Context"/>
 <fullyQualifiedTypeName name="java.util.Scanner"/>
 <fullyQualifiedTypeName name="sea.nlp.pos.TagCount"/>
+<fullyQualifiedTypeName name="java.lang.ArrayIndexOutOfBoundsException"/>
+<fullyQualifiedTypeName name="sea.nlp.viterbi.TrellisState"/>
+<fullyQualifiedTypeName name="sea.nlp.viterbi.Transition"/>
+<fullyQualifiedTypeName name="sea.nlp.viterbi.Observation"/>
+<fullyQualifiedTypeName name="sea.nlp.viterbi.State"/>
+<fullyQualifiedTypeName name="java.lang.Double"/>
+<fullyQualifiedTypeName name="java.util.ArrayList"/>
+<fullyQualifiedTypeName name="sea.nlp.viterbi.HMM"/>
+<fullyQualifiedTypeName name="java.lang.Exception"/>
 </qualifiedTypeNameHistroy>

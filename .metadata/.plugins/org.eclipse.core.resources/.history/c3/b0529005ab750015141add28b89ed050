@@ -1,0 +1,9 @@
+package sea.nlp.viterbi;
+
+public class Observation {
+	private String observation;
+	private State hiddenState;
+	private float observationProbability;
+	
+	
+}

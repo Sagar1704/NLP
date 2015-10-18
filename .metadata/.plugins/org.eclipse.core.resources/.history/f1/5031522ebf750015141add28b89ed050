@@ -1,0 +1,21 @@
+package sea.nlp.viterbi;
+
+import java.io.File;
+import java.util.Scanner;
+
+/**
+ * @author Sagar
+ *
+ */
+public class ViterbiMain {
+	public static final String INPUT = "hmm.txt";
+	
+	public static void main(String[] args) {
+		
+	}
+
+	public void getHMM() {
+		Scanner scanner = new Scanner(new File(INPUT));
+		
+	}
+}

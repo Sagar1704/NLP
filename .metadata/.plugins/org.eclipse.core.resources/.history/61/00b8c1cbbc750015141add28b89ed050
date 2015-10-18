@@ -1,0 +1,15 @@
+package sea.nlp.viterbi;
+
+import java.util.ArrayList;
+
+/**
+ * HMM is the graph consisting of states.
+ * 
+ * @author Sagar
+ *
+ */
+public class HMM {
+	private ArrayList<State> states;
+	
+	
+}

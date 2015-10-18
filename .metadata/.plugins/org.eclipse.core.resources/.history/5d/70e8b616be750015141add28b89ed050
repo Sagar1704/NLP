@@ -1,0 +1,6 @@
+package sea.nlp.viterbi;
+
+public class TrellisState extends State{
+	private float maxProbability;
+	private State backpointer;
+}

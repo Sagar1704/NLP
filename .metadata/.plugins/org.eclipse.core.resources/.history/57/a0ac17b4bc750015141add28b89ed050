@@ -1,0 +1,11 @@
+package sea.nlp.viterbi;
+
+/**
+ * HMM is the graph consisting of states and transitions.
+ * 
+ * @author Sagar
+ *
+ */
+public class HMM {
+	
+}

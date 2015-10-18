@@ -1,0 +1,7 @@
+1445181690568	Encapsulate field 'observations'
+1445189379726	Rename type 'Trellis'
+1445190177252	Rename local variable 'transitionInfo'
+1445190838727	Rename local variable 'transitionInfo'
+1445195157860	Rename method 'getHMM'
+1445195190794	Rename field 'INPUT'
+1445195205488	Rename field 'HMM'

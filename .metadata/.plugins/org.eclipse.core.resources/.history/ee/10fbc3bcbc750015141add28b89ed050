@@ -1,0 +1,11 @@
+package sea.nlp.viterbi;
+
+/**
+ * HMM is the graph consisting of states.
+ * 
+ * @author Sagar
+ *
+ */
+public class HMM {
+	
+}

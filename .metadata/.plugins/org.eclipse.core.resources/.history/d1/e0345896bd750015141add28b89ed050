@@ -1,0 +1,13 @@
+package sea.nlp.viterbi;
+
+/**
+ * @author Sagar
+ *
+ */
+public class ViterbiMain {
+
+	public static void main(String[] args) {
+		
+	}
+
+}

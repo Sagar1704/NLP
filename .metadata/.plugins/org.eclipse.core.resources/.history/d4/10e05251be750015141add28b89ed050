@@ -1,0 +1,5 @@
+package sea.nlp.viterbi;
+
+public class Trellis {
+
+}
