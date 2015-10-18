@@ -1,0 +1,15 @@
+package sea.nlp.comparator;
+
+import java.util.Comparator;
+
+import sea.nlp.pos.Context;
+
+public class ContextCounter implements Comparator<Context>{
+
+	@Override
+	public int compare(Context o1, Context o2) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+}

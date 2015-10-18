@@ -10,9 +10,12 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Scanner;
 import java.util.TreeSet;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
-import sea.nlp.comparator.Counter;
+import sea.nlp.comparator.ContextCounter;
 import sea.nlp.comparator.ErrorCounter;
+import sea.nlp.comparator.TagCounter;
 
 /**
  * POS Tagging scans for the tags. Finds the count of the tags given a word.
@@ -28,11 +31,11 @@ public class POSTagging {
 	public static int tokenCounter = 0;
 	public static int errorCounter = 0;
 
-	private HashMap<String, TreeSet<TagCounter>> wordTagMap;
+	private HashMap<String, TreeSet<TagCount>> wordTagMap;
 	private TreeSet<WordError> wordErrors;
 
 	public POSTagging() {
-		this.wordTagMap = new HashMap<String, TreeSet<TagCounter>>();
+		this.wordTagMap = new HashMap<String, TreeSet<TagCount>>();
 		this.wordErrors = new TreeSet<WordError>(new ErrorCounter());
 	}
 
@@ -66,6 +69,10 @@ public class POSTagging {
 
 				System.out.println("The Top 5 erroneously tagged words are::");
 				tagger.getTopErroneuosTags(5);
+				Thread.sleep(1000);
+
+				System.out.println("Following are the rules based on the errors::");
+				tagger.generateTaggingRules(5);
 				System.out.println("\n**************Done***************");
 				System.out.println("Close the window to exit!");
 				new BufferedReader(new InputStreamReader(System.in)).readLine();
@@ -92,15 +99,15 @@ public class POSTagging {
 			tokenCounter++;
 			String token = scanner.next();
 			String word = token.split("_")[0];
-			TagCounter tag = new TagCounter(token.split("_")[1]);
+			TagCount tag = new TagCount(token.split("_")[1]);
 			if (!wordTagMap.containsKey(word)) {
-				TreeSet<TagCounter> tags = new TreeSet<TagCounter>(new Counter());
+				TreeSet<TagCount> tags = new TreeSet<TagCount>(new TagCounter());
 				tags.add(tag);
 				wordTagMap.put(word, tags);
 			} else {
-				TreeSet<TagCounter> tags = wordTagMap.get(word);
-				for (Iterator<TagCounter> treeIterator = tags.iterator(); treeIterator.hasNext();) {
-					TagCounter tagCounter = (TagCounter) treeIterator.next();
+				TreeSet<TagCount> tags = wordTagMap.get(word);
+				for (Iterator<TagCount> treeIterator = tags.iterator(); treeIterator.hasNext();) {
+					TagCount tagCounter = (TagCount) treeIterator.next();
 					if (tagCounter.equals(tag)) {
 						tag.setCounter(tagCounter.getCounter() + 1);
 						treeIterator.remove();
@@ -179,18 +186,63 @@ public class POSTagging {
 
 	/**
 	 * Generate Tagging rules based on the erroneously tagged words
-	 * @throws FileNotFoundException 
+	 * 
+	 * @throws FileNotFoundException
 	 */
 	private void generateTaggingRules(int top) throws FileNotFoundException {
 		int size = (top < wordErrors.size() ? top : wordErrors.size());
-
+		HashMap<String, TreeSet<Context>> wordContexts = new HashMap<String, TreeSet<Context>>();
+		
 		for (WordError wordError : wordErrors) {
 			if (size == 0)
 				break;
-			
-			Scanner scanner = new Scanner(new File(INPUT));
-			
+			Pattern PATTERN = Pattern.compile("(\\w+_\\w+)*\\s*(" + wordError.getWord() + "_\\w*)\\s*(\\w+_\\w+)*");
+			Scanner scanner = new Scanner(new File(OUTPUT));
+			while (scanner.hasNextLine()) {
+				String line = scanner.nextLine();
+				Matcher matcher = PATTERN.matcher(line);
+				while (matcher.find()) {
+					TagCount leftTag = null;
+					TagCount selfTag = null;
+					TagCount rightTag = null;
+					// System.out.println(matcher.groupCount());
+
+					if (matcher.group(1) != null && !matcher.group(1).trim().isEmpty()) {
+						leftTag = new TagCount(matcher.group(1).split("_")[1]);
+					}
+					if (matcher.group(2) != null && !matcher.group(2).trim().isEmpty()) {
+						selfTag = new TagCount(matcher.group(2).split("_")[1]);
+					}
+					if (matcher.group(3) != null && !matcher.group(3).trim().isEmpty()) {
+						rightTag = new TagCount(matcher.group(3).split("_")[1]);
+					}
+
+					Context context = new Context(leftTag, selfTag, rightTag);
+					if (!wordContexts.containsKey(wordError.getWord())) {
+						TreeSet<Context> c = new TreeSet<Context>(new ContextCounter());
+						c.add(context);
+						wordContexts.put(wordError.getWord(), c);
+					} else {
+						TreeSet<Context> contexts = wordContexts.get(wordError.getWord());
+						for (Iterator<Context> treeIterator = contexts.iterator(); treeIterator.hasNext();) {
+							Context contextCounter = (Context) treeIterator.next();
+							if (contextCounter.equals(context)) {
+								context.setContextCounter(contextCounter.getContextCounter() + 1);
+								treeIterator.remove();
+								break;
+							}
+						}
+						contexts.add(context);
+					}
+				}
+			}
 			size--;
+			scanner.close();
+		}
+
+		for (String wordError : wordContexts.keySet()) {
+			Context context = wordContexts.get(wordError).first();
+			System.out.println(context.getLeft() + wordError + "(" + context.getItself() + ")" + context.getRight());
 		}
 	}
 
