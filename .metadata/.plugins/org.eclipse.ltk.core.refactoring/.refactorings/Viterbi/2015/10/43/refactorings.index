@@ -5,3 +5,4 @@
 1445195157860	Rename method 'getHMM'
 1445195190794	Rename field 'INPUT'
 1445195205488	Rename field 'HMM'
+1445296851288	Extract constant 'START'

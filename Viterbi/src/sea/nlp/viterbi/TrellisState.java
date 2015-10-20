@@ -9,22 +9,29 @@ package sea.nlp.viterbi;
  */
 public class TrellisState extends State {
 	private float maxProbability;
-	private State backpointer;
+	private TrellisState backpointer;
+
+	public TrellisState(State state) {
+		super(state.getStateName(), state.getPriorProbability(), state.getTransitions(), state.getObservations());
+		this.setMaxProbability(0.0f);
+	}
 
 	public float getMaxProbability() {
 		return maxProbability;
 	}
 
 	public void setMaxProbability(float maxProbability) {
-		this.maxProbability = maxProbability;
+		if (this.maxProbability < maxProbability)
+			this.maxProbability = maxProbability;
 	}
 
-	public State getBackpointer() {
+	public TrellisState getBackpointer() {
 		return backpointer;
 	}
 
-	public void setBackpointer(State backpointer) {
-		this.backpointer = backpointer;
+	public void setBackpointer(TrellisState backpointer, float maxProbability) {
+		if (maxProbability == this.getMaxProbability())
+			this.backpointer = backpointer;
 	}
 
 	@Override

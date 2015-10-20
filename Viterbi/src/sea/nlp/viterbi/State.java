@@ -1,6 +1,9 @@
 package sea.nlp.viterbi;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
 
 /**
  * This is the node of the HMM graph with its prior probability, transitions,
@@ -12,7 +15,7 @@ import java.util.ArrayList;
 public class State {
 	private String stateName;
 	private float priorProbability;
-	private ArrayList<Transition> transitions;
+	private Set<Transition> transitions;
 	private ArrayList<Observation> observations;
 
 	public State() {
@@ -23,13 +26,27 @@ public class State {
 		this.stateName = stateName;
 	}
 
-	public State(String stateName, float priorProbability, ArrayList<Transition> transitions,
+	public State(String stateName, float priorProbability, Set<Transition> transitions,
 			ArrayList<Observation> observations) {
 		super();
 		this.stateName = stateName;
 		this.priorProbability = priorProbability;
-		this.transitions = transitions;
-		this.observations = observations;
+
+		this.transitions = new HashSet<Transition>();
+		if (transitions != null) {
+			for (Iterator<Transition> iterator = transitions.iterator(); iterator.hasNext();) {
+				Transition transition = (Transition) iterator.next();
+
+				this.transitions.add(transition);
+			}
+		}
+
+		this.observations = new ArrayList<Observation>();
+		if (observations != null) {
+			for (Observation observation : observations) {
+				this.observations.add(observation);
+			}
+		}
 	}
 
 	public String getStateName() {
@@ -48,11 +65,11 @@ public class State {
 		this.priorProbability = priorProbability;
 	}
 
-	public ArrayList<Transition> getTransitions() {
+	public Set<Transition> getTransitions() {
 		return transitions;
 	}
 
-	public void setTransitions(ArrayList<Transition> transitions) {
+	public void setTransitions(Set<Transition> transitions) {
 		this.transitions = transitions;
 	}
 
@@ -95,4 +112,19 @@ public class State {
 				+ transitions + ", observations=" + observations + "]";
 	}
 
+	public void addTransition(Transition transition) {
+		if(!this.transitions.add(transition)) {
+			this.transitions.remove(transition);
+			this.transitions.add(transition);
+		}
+		
+	}
+
+	public float getTransitinProbability(State toState) {
+		for (Transition transition : transitions) {
+			if (transition.getToState().equals(toState))
+				return transition.getTransitionProbability();
+		}
+		return 0.0f;
+	}
 }

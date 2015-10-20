@@ -31,4 +31,6 @@ public class HMM {
 	public void addState(State state) {
 		this.states.add(state);
 	}
+	
+	
 }

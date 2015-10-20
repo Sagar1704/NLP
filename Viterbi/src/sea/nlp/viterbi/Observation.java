@@ -14,6 +14,11 @@ public class Observation {
 	public Observation() {
 	}
 
+	public Observation(String observation) {
+		super();
+		this.observation = observation;
+	}
+
 	public Observation(String observation, float observationProbability) {
 		super();
 		this.observation = observation;
