@@ -1,0 +1,38 @@
+package sea.nlp.pos;
+
+import java.util.TreeSet;
+
+/**
+ * @author Sagar
+ *
+ */
+public class WordTagsCount {
+	private String word;
+	private TreeSet<TagCount> tags;
+	private int wordCounter;
+
+	public String getWord() {
+		return word;
+	}
+
+	public void setWord(String word) {
+		this.word = word;
+	}
+
+	public TreeSet<TagCount> getTags() {
+		return tags;
+	}
+
+	public void setTags(TreeSet<TagCount> tags) {
+		this.tags = tags;
+	}
+
+	public int getWordCounter() {
+		return wordCounter;
+	}
+
+	public void setWordCounter(int wordCounter) {
+		this.wordCounter = wordCounter;
+	}
+
+}

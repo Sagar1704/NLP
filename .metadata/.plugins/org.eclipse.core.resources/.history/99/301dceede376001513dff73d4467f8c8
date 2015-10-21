@@ -1,0 +1,23 @@
+package sea.nlp.pos;
+
+public class TagCount {
+	private String tag;
+	private int tagCounter;
+
+	public String getTag() {
+		return tag;
+	}
+
+	public void setTag(String tag) {
+		this.tag = tag;
+	}
+
+	public int getTagCounter() {
+		return tagCounter;
+	}
+
+	public void setTagCounter(int tagCounter) {
+		this.tagCounter = tagCounter;
+	}
+
+}

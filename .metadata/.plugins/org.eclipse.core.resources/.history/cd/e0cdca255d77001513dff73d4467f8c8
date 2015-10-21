@@ -1,0 +1,8 @@
+package sea.nlp.pos;
+
+public class Context {
+	private String previousTag;
+	private String nextTag;
+	
+	
+}

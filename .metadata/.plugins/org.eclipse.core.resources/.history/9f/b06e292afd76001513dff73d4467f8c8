@@ -1,0 +1,63 @@
+package sea.nlp.pos;
+
+import java.util.ArrayList;
+import java.util.TreeSet;
+
+public class POS {
+	private ArrayList<WordTagsCount> words;
+
+	public POS() {
+		this.words = new ArrayList<WordTagsCount>();
+	}
+	
+	public ArrayList<WordTagsCount> getWords() {
+		return words;
+	}
+
+	public void setWords(ArrayList<WordTagsCount> words) {
+		this.words = words;
+	}
+
+	public void addWord(String word, String tag) {
+		WordTagsCount wordTag = new WordTagsCount(word, tag);
+		
+		if(!words.contains(wordTag)) {
+			words.add(wordTag);
+		} else {
+			wordTag = words.get(words.indexOf(wordTag));
+			wordTag.setWordCounter(wordTag.getWordCounter() + 1);
+			wordTag.addTag(tag); 
+		}
+	}
+	
+	public String getCorrectTag(String word) {
+		WordTagsCount wordTagsCount = words.get(words.indexOf(new WordTagsCount(word)));
+		return wordTagsCount.getCorrectTag();
+		
+	}
+	
+	public void incrementErrorCounter(String word) {
+		WordTagsCount wordTagsCount = words.get(words.indexOf(new WordTagsCount(word)));
+		wordTagsCount.incrementErrorCounter();
+	}
+	
+	public int getErrorCount() {
+		int count = 0;
+		for (WordTagsCount wordTagsCount : words) {
+			count += wordTagsCount.getErrorCounter();
+		}
+		return count;
+	}
+	
+	public int getWordCount() {
+		int count = 0;
+		for (WordTagsCount wordTagsCount : words) {
+			count += wordTagsCount.getWordCounter();
+		}
+		return count;
+	}
+	
+	public TreeSet<WordTagsCount> getTopErroneousWords(int top) {
+		
+	}
+}

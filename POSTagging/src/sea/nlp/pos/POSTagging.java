@@ -33,10 +33,12 @@ public class POSTagging {
 
 	private HashMap<String, TreeSet<TagCount>> wordTagMap;
 	private TreeSet<WordError> wordErrors;
-
+	private HashMap<String, TreeSet<Context>> wordContexts;
+	
 	public POSTagging() {
 		this.wordTagMap = new HashMap<String, TreeSet<TagCount>>();
 		this.wordErrors = new TreeSet<WordError>(new ErrorCounter());
+		this.wordContexts = new HashMap<String, TreeSet<Context>>();
 	}
 
 	public static void main(String[] args) {
@@ -146,7 +148,6 @@ public class POSTagging {
 						}
 					}
 					wordErrors.add(word);
-
 				}
 				writer.write(token.split("_")[0] + "_" + correctTag + " ");
 			}
@@ -191,13 +192,14 @@ public class POSTagging {
 	 */
 	private void generateTaggingRules(int top) throws FileNotFoundException {
 		int size = (top < wordErrors.size() ? top : wordErrors.size());
-		HashMap<String, TreeSet<Context>> wordContexts = new HashMap<String, TreeSet<Context>>();
 		
 		for (WordError wordError : wordErrors) {
 			if (size == 0)
 				break;
+			//Add the erroneous tag
 			Pattern PATTERN = Pattern.compile("(\\w+_\\w+)*\\s*(" + wordError.getWord() + "_\\w*)\\s*(\\w+_\\w+)*");
-			Scanner scanner = new Scanner(new File(OUTPUT));
+			
+			Scanner scanner = new Scanner(new File(INPUT));
 			while (scanner.hasNextLine()) {
 				String line = scanner.nextLine();
 				Matcher matcher = PATTERN.matcher(line);
@@ -205,8 +207,6 @@ public class POSTagging {
 					TagCount leftTag = null;
 					TagCount selfTag = null;
 					TagCount rightTag = null;
-					// System.out.println(matcher.groupCount());
-
 					if (matcher.group(1) != null && !matcher.group(1).trim().isEmpty()) {
 						leftTag = new TagCount(matcher.group(1).split("_")[1]);
 					}
@@ -246,4 +246,7 @@ public class POSTagging {
 		}
 	}
 
+	private void reTag(HashMap<String, TreeSet<Context>> wordContexts) {
+		
+	}
 }

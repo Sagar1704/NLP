@@ -1,0 +1,75 @@
+package sea.nlp.pos;
+
+import java.util.TreeSet;
+
+/**
+ * @author Sagar
+ *
+ */
+public class WordTagsCount {
+	private String word;
+	private TreeSet<TagCount> tags;
+	private int wordCounter;
+	
+	public WordTagsCount(String word, TreeSet<TagCount> tags, int wordCounter) {
+		super();
+		this.word = word;
+		this.tags = tags;
+		this.wordCounter = wordCounter;
+	}
+
+	public String getWord() {
+		return word;
+	}
+
+	public void setWord(String word) {
+		this.word = word;
+	}
+
+	public TreeSet<TagCount> getTags() {
+		return tags;
+	}
+
+	public void setTags(TreeSet<TagCount> tags) {
+		this.tags = tags;
+	}
+
+	public int getWordCounter() {
+		return wordCounter;
+	}
+
+	public void setWordCounter(int wordCounter) {
+		this.wordCounter = wordCounter;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((word == null) ? 0 : word.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		WordTagsCount other = (WordTagsCount) obj;
+		if (word == null) {
+			if (other.word != null)
+				return false;
+		} else if (!word.equals(other.word))
+			return false;
+		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "WordTagsCount [word=" + word + ", tags=" + tags + ", wordCounter=" + wordCounter + "]";
+	}
+
+}

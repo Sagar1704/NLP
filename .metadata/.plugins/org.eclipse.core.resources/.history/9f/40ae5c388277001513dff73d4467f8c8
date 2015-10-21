@@ -1,0 +1,121 @@
+package sea.nlp.pos;
+
+import java.util.Iterator;
+import java.util.TreeSet;
+
+import sea.nlp.comparator.ErrorComparator;
+
+public class POS {
+	private TreeSet<WordTagsCount> words;
+
+	public POS() {
+		this.words = new TreeSet<WordTagsCount>(new ErrorComparator());
+	}
+
+	public TreeSet<WordTagsCount> getWords() {
+		return words;
+	}
+
+	public void setWords(TreeSet<WordTagsCount> words) {
+		this.words = words;
+	}
+
+	public void addWord(String word, String tag) {
+		WordTagsCount wordTag = new WordTagsCount(word, tag);
+
+		for (Iterator<WordTagsCount> treeIterator = words.iterator(); treeIterator.hasNext();) {
+			WordTagsCount wordTagsCount = (WordTagsCount) treeIterator.next();
+			if (wordTagsCount.equals(wordTag)) {
+				wordTag.setWordCounter(wordTagsCount.getWordCounter() + 1);
+				wordTagsCount.addTag(tag);
+				wordTag.setTags(wordTagsCount.getTags());
+				treeIterator.remove();
+				break;
+			}
+		}
+		words.add(wordTag);
+	}
+
+	public String getCorrectTag(String word) {
+		for (Iterator<WordTagsCount> treeIterator = words.iterator(); treeIterator.hasNext();) {
+			WordTagsCount wordTagsCount = (WordTagsCount) treeIterator.next();
+			if (wordTagsCount.equals(new WordTagsCount(word))) {
+				return wordTagsCount.getCorrectTag();
+			}
+		}
+		return "";
+	}
+
+	public String getCorrectTagUsingRules(String word) {
+		if(word.equals("that")) {
+			if()
+		} else if(word.equals("have")) {
+			
+		} else if(word.equals("more")) {
+			
+		} else if(word.equals("'s")) {
+			
+		} else if(word.equals("plans")) {
+			
+		}
+		
+		return "";
+	}
+
+	public void incrementErrorCounter(String word) {
+		WordTagsCount wordTag = new WordTagsCount(word);
+		for (Iterator<WordTagsCount> treeIterator = words.iterator(); treeIterator.hasNext();) {
+			WordTagsCount wordTagsCount = (WordTagsCount) treeIterator.next();
+			if (wordTagsCount.equals(new WordTagsCount(word))) {
+				wordTag.setErrorCounter(wordTagsCount.getErrorCounter() + 1);
+				wordTag.setWordCounter(wordTagsCount.getWordCounter());
+				wordTag.setTags(wordTagsCount.getTags());
+				treeIterator.remove();
+				break;
+			}
+		}
+		words.add(wordTag);
+	}
+
+	public int getErrorCount() {
+		int count = 0;
+		for (WordTagsCount wordTagsCount : words) {
+			count += wordTagsCount.getErrorCounter();
+		}
+		return count;
+	}
+
+	public int getWordCount() {
+		int count = 0;
+		for (WordTagsCount wordTagsCount : words) {
+			count += wordTagsCount.getWordCounter();
+		}
+		return count;
+	}
+
+	public TreeSet<WordTagsCount> getTopErroneousWords(int top) {
+		TreeSet<WordTagsCount> wordErrors = new TreeSet<WordTagsCount>(new ErrorComparator());
+		int size = (top < words.size() ? top : words.size());
+		for (WordTagsCount wordError : words) {
+			if (size == 0)
+				break;
+			wordErrors.add(wordError);
+			size--;
+		}
+
+		return wordErrors;
+	}
+
+	public void updateWordContext(String word, String tag, String previousTag, String nextTag) {
+		WordTagsCount wordTag = new WordTagsCount(word, tag);
+
+		for (Iterator<WordTagsCount> treeIterator = words.iterator(); treeIterator.hasNext();) {
+			WordTagsCount wordTagsCount = (WordTagsCount) treeIterator.next();
+			if (wordTagsCount.equals(wordTag)) {
+				wordTagsCount.updateTagContext(tag, previousTag, nextTag);
+				break;
+			}
+		}
+	}
+
+}

@@ -1,0 +1,9 @@
+package sea.nlp.pos;
+
+public class POSTaggerMain {
+
+	public static void main(String[] args) {
+
+	}
+
+}

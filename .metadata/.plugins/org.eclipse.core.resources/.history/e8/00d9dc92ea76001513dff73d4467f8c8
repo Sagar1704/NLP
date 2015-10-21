@@ -1,0 +1,26 @@
+package sea.nlp.pos;
+
+import java.util.ArrayList;
+import java.util.TreeSet;
+
+public class POS {
+	private ArrayList<WordTagsCount> words;
+
+	public POS() {
+		this.words = new ArrayList<WordTagsCount>();
+	}
+	
+	public ArrayList<WordTagsCount> getWords() {
+		return words;
+	}
+
+	public void setWords(ArrayList<WordTagsCount> words) {
+		this.words = words;
+	}
+
+	public void addWord(String word, String tag) {
+		TagCount tagCount = new TagCount(tag);
+		WordTagsCount wordTag = new WordTagsCount(word, tag);
+		
+	}
+}

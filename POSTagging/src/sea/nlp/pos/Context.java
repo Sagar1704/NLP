@@ -1,5 +1,9 @@
 package sea.nlp.pos;
 
+/**
+ * @author Sagar
+ *
+ */
 public class Context {
 	private TagCount left;
 	private TagCount itself;

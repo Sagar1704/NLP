@@ -1,0 +1,77 @@
+package sea.nlp.pos;
+
+import java.util.Iterator;
+import java.util.TreeSet;
+
+public class POS {
+	private TreeSet<WordTagsCount> words;
+
+	public POS() {
+		this.words = new TreeSet<WordTagsCount>();
+	}
+	
+	public TreeSet<WordTagsCount> getWords() {
+		return words;
+	}
+
+	public void setWords(TreeSet<WordTagsCount> words) {
+		this.words = words;
+	}
+
+	public void addWord(String word, String tag) {
+		WordTagsCount wordTag = new WordTagsCount(word, tag);
+		
+		for (Iterator<WordTagsCount> treeIterator = words.iterator(); treeIterator.hasNext();) {
+			WordTagsCount wordTagsCount = (WordTagsCount) treeIterator.next();
+			if (wordTagsCount.equals(wordTag)) {
+				wordTag.setWordCounter(wordTagsCount.getWordCounter() + 1);
+				treeIterator.remove();
+				break;
+			}
+		}
+		words.add(wordTag);
+	}
+	
+	public String getCorrectTag(String word) {
+		for (Iterator<WordTagsCount> treeIterator = words.iterator(); treeIterator.hasNext();) {
+			WordTagsCount wordTagsCount = (WordTagsCount) treeIterator.next();
+			if(wordTagsCount.equals(new WordTagsCount(word))) {
+				return wordTagsCount.getCorrectTag();
+			}
+		}
+		return "";
+	}
+	
+	public void incrementErrorCounter(String word) {
+		for (Iterator<WordTagsCount> treeIterator = words.iterator(); treeIterator.hasNext();) {
+			WordTagsCount wordTagsCount = (WordTagsCount) treeIterator.next();
+			wordTagsCount.incrementErrorCounter();
+		}
+	}
+	
+	public int getErrorCount() {
+		int count = 0;
+		for (WordTagsCount wordTagsCount : words) {
+			count += wordTagsCount.getErrorCounter();
+		}
+		return count;
+	}
+	
+	public int getWordCount() {
+		int count = 0;
+		for (WordTagsCount wordTagsCount : words) {
+			count += wordTagsCount.getWordCounter();
+		}
+		return count;
+	}
+	
+	public TreeSet<WordTagsCount> getTopErroneousWords(int top) {
+		TreeSet<WordTagsCount> wordErrors = new TreeSet<WordTagsCount>();
+		
+		for (WordTagsCount wordTagsCount : words) {
+			
+		}
+		
+		return wordErrors;
+	}
+}
