@@ -55,14 +55,14 @@ public class POSTaggerMain {
 
 				// Show contexts
 				tagger.getContexts();
-
+				
 				// Display rules
 				tagger.displayRules();
 				Thread.sleep(1000);
 
 				// Show error rate on retagging with rules
 				System.out.println("\nError rate(By tagging with rules):: " + tagger.reTagWithRules());
-
+				
 				System.out.println("\n*****************Done**********************");
 
 			} catch (FileNotFoundException e) {
@@ -207,12 +207,12 @@ public class POSTaggerMain {
 		return (float) errorCounter / pos.getWordCount();
 	}
 
-	public void displayRules() throws InterruptedException {
+	public void displayRules() {
 		System.out.println("\nFollowing are the handwritten rules used for retagging the input file:");
 
 		// that
 		System.out.println("For word :: \"that\"");
-		Thread.sleep(500);
+		Thread.sleep(100);
 		System.out.println("IF");
 		System.out.println("\tPREVIOUS WORD - (NN/VBD)");
 		System.out.println("\tNEXT WORD - (PRP)");
@@ -221,7 +221,6 @@ public class POSTaggerMain {
 		System.out.println("\tNEXT WORD - (DT)");
 		System.out.println("THEN");
 		System.out.println("\tCORRECT TAG - IN");
-		Thread.sleep(500);
 
 		System.out.println("\nIF");
 		System.out.println("\tPREVIOUS WORD - (NN)");
@@ -231,19 +230,16 @@ public class POSTaggerMain {
 		System.out.println("\tNEXT WORD - (VBP/MD/VBD/VBZ)");
 		System.out.println("THEN");
 		System.out.println("\tCORRECT TAG - WDT");
-		Thread.sleep(500);
 
 		System.out.println("\nIF");
 		System.out.println("\tPREVIOUS WORD - (IN/CC/VBG/VBD/TO/VBP)");
 		System.out.println("\tNEXT WORD - (NN)");
 		System.out.println("THEN");
 		System.out.println("\tCORRECT TAG - DT");
-		Thread.sleep(500);
 		//
 
 		// have
 		System.out.println("\n\nFor word :: \"have\"");
-		Thread.sleep(500);
 		System.out.println("IF");
 		System.out.println("\tPREVIOUS WORD - (NNS/NN/PRP/WP/WDT/EX/NNP/CC)");
 		System.out.println("\tNEXT WORD - (VBN)");
@@ -252,7 +248,6 @@ public class POSTaggerMain {
 		System.out.println("\tNEXT WORD - (RB)");
 		System.out.println("THEN");
 		System.out.println("\tCORRECT TAG - VBP");
-		Thread.sleep(500);
 
 		System.out.println("\nIF");
 		System.out.println("\tPREVIOUS WORD - (MD)");
@@ -262,12 +257,10 @@ public class POSTaggerMain {
 		System.out.println("\tNEXT WORD - (VBN/CD/TO/JJ)");
 		System.out.println("THEN");
 		System.out.println("\tCORRECT TAG - VB");
-		Thread.sleep(500);
 		//
 
 		// more
 		System.out.println("\n\nFor word :: \"more\"");
-		Thread.sleep(500);
 		System.out.println("IF");
 		System.out.println("\tPREVIOUS WORD - (IN/VB/CD/VBD/RB)");
 		System.out.println("\tNEXT WORD - (IN)");
@@ -279,7 +272,6 @@ public class POSTaggerMain {
 		System.out.println("\tNEXT WORD - (NN)");
 		System.out.println("THEN");
 		System.out.println("\tCORRECT TAG - JJR");
-		Thread.sleep(500);
 
 		System.out.println("\nIF");
 		System.out.println("\tPREVIOUS WORD - (VBD/VBZ/NN/CC/VBG/VB/DT/VBN/RB/IN)");
@@ -289,12 +281,10 @@ public class POSTaggerMain {
 		System.out.println("\tNEXT WORD - (RB)");
 		System.out.println("THEN");
 		System.out.println("\tCORRECT TAG - RBR");
-		Thread.sleep(500);
 		//
 
 		// 's
 		System.out.println("\n\nFor word :: \"'s\"");
-		Thread.sleep(500);
 		System.out.println("IF");
 		System.out.println("\tPREVIOUS WORD - (NNP)");
 		System.out.println("\tNEXT WORD - (NN/NNP/JJ/NNS/CD/JJS/IN/VBG)");
@@ -303,7 +293,6 @@ public class POSTaggerMain {
 		System.out.println("\tNEXT WORD - (NN/JJ/NNS/NNP/JJS/CD)");
 		System.out.println("THEN");
 		System.out.println("\tCORRECT TAG - POS");
-		Thread.sleep(500);
 
 		System.out.println("\nIF");
 		System.out.println("\tPREVIOUS WORD - (EX)");
@@ -313,18 +302,15 @@ public class POSTaggerMain {
 		System.out.println("\tNEXT WORD - (VBG/RB/DT/IN/VBN/JJ)");
 		System.out.println("THEN");
 		System.out.println("\tCORRECT TAG - VBZ");
-		Thread.sleep(500);
 		//
 
 		// plans
 		System.out.println("\n\nFor word :: \"plans\"");
-		Thread.sleep(500);
 		System.out.println("IF");
 		System.out.println("\tPREVIOUS WORD - (PRP/NNP/NN/WDT/RB)");
 		System.out.println("\tNEXT WORD - (TO)");
 		System.out.println("THEN");
 		System.out.println("\tCORRECT TAG - VBZ");
-		Thread.sleep(500);
 
 		System.out.println("\nIF");
 		System.out.println("\tPREVIOUS WORD - (NN/VBD/VBN/JJ)");
@@ -334,7 +320,6 @@ public class POSTaggerMain {
 		System.out.println("\tNEXT WORD - (TO)");
 		System.out.println("THEN");
 		System.out.println("\tCORRECT TAG - NNS");
-		Thread.sleep(500);
 		//
 
 	}
