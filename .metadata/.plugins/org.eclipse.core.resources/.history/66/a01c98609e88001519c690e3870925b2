@@ -1,0 +1,5 @@
+package nlp.sea.lesk;
+
+public class Sense {
+
+}

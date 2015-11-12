@@ -1,9 +1,0 @@
-package sea.nlp.viterbi;
-
-public class Transition {
-	private State fromState;
-	private State toState;
-	private float transitionProbability;
-	
-	
-}

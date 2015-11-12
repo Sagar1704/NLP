@@ -1,0 +1,32 @@
+package nlp.sea.lesk;
+
+public class Sense {
+	private String sense;
+	private String gloss;
+	private String example;
+
+	public String getSense() {
+		return sense;
+	}
+
+	public void setSense(String sense) {
+		this.sense = sense;
+	}
+
+	public String getGloss() {
+		return gloss;
+	}
+
+	public void setGloss(String gloss) {
+		this.gloss = gloss;
+	}
+
+	public String getExample() {
+		return example;
+	}
+
+	public void setExample(String example) {
+		this.example = example;
+	}
+
+}

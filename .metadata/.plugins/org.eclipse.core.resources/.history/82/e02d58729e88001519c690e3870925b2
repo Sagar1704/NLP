@@ -1,0 +1,7 @@
+package nlp.sea.lesk;
+
+public class Sense {
+	private String sense;
+	private String gloss;
+	private String example;
+}

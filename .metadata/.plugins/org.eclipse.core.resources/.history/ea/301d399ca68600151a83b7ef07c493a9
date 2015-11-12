@@ -1,0 +1,10 @@
+package nlp.sea.lesk;
+
+public class SimplifiedLesk {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+}

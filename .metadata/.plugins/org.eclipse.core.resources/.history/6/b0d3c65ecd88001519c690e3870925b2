@@ -1,0 +1,28 @@
+package nlp.sea.lesk;
+
+import java.io.File;
+
+public class SimplifiedLesk {
+	private static final String INPUT = "wordsense.txt";
+	
+	public static void main(String[] args) {
+		SimplifiedLesk lesk = new SimplifiedLesk();
+		
+		lesk.readInput(new File(INPUT));
+		
+	}
+
+	private void readInput(File input) {
+		
+	}
+	
+	public String simplifiedLesk(String word, String senetence) {
+		String bestSense = "";
+		int maxOverlap = 0;
+		
+		
+		return bestSense;
+	}
+	
+	
+}

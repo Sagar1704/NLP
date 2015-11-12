@@ -1,0 +1,8 @@
+package nlp.sea.lesk;
+
+import java.util.TreeSet;
+
+public class WordSense {
+	private String word;
+//	private TreeSet<Sense> senses;
+}

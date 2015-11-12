@@ -1,0 +1,58 @@
+package nlp.sea.lesk;
+
+public class Sense {
+	private String sense;
+	private String gloss;
+	private String example;
+
+	public String getSense() {
+		return sense;
+	}
+
+	public void setSense(String sense) {
+		this.sense = sense;
+	}
+
+	public String getGloss() {
+		return gloss;
+	}
+
+	public void setGloss(String gloss) {
+		this.gloss = gloss;
+	}
+
+	public String getExample() {
+		return example;
+	}
+
+	public void setExample(String example) {
+		this.example = example;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((sense == null) ? 0 : sense.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Sense other = (Sense) obj;
+		if (sense == null) {
+			if (other.sense != null)
+				return false;
+		} else if (!sense.equals(other.sense))
+			return false;
+		return true;
+	}
+
+	
+}

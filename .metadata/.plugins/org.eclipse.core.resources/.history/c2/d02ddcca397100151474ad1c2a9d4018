@@ -1,9 +1,0 @@
-package sea.nlp.pos;
-
-public class Context {
-	private TagCounter left;
-	private TagCounter itself;
-	private TagCounter right;
-	
-	
-}

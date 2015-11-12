@@ -1,5 +1,0 @@
-package sea.nlp.comparator;
-
-public class Counter extends Comparator<TagCounter> {
-
-}

@@ -1,0 +1,52 @@
+package nlp.sea.lesk;
+
+public class Sense {
+	private int priority;
+	private String gloss;
+	private String example;
+
+	public Sense() {
+	}
+
+	public Sense(int priority, String gloss, String example) {
+		super();
+		this.priority = priority;
+		this.gloss = gloss;
+		this.example = example;
+	}
+
+	public int getPriority() {
+		return priority;
+	}
+
+	public void setPriotity(int priority) {
+		this.priority = priority;
+	}
+
+	public String getGloss() {
+		return gloss;
+	}
+
+	public void setGloss(String gloss) {
+		this.gloss = gloss;
+	}
+
+	public String getExample() {
+		return example;
+	}
+
+	public void setExample(String example) {
+		this.example = example;
+	}
+
+	@Override
+	public String toString() {
+		return "Sense [sense=" + priority + ", gloss=" + gloss + ", example=" + example + "]";
+	}
+
+	public int computeOverlap(String context) {
+		int overlap = 0;
+		
+		return overlap;
+	}
+}

@@ -1,7 +1,0 @@
-package sea.nlp.comparator;
-
-import java.util.Comparator;
-
-public class ContextCounter implements Comparator<Context>{
-
-}

@@ -1,6 +1,0 @@
-package sea.nlp.pos;
-
-public class TagCount {
-	private String tag;
-	private int tagCounter;
-}

@@ -1,5 +1,0 @@
-package sea.nlp.viterbi;
-
-public class Transition {
-
-}

@@ -1,0 +1,17 @@
+package nlp.sea.lesk;
+
+public class SimplifiedLesk {
+
+	public static void main(String[] args) {
+
+	}
+
+	public String simplifiedLesk(String word, String senetence) {
+		String bestSense = "";
+		
+		
+		return bestSense;
+	}
+	
+	
+}

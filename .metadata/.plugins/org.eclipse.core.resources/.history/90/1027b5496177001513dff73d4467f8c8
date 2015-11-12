@@ -1,7 +1,0 @@
-package sea.nlp.comparator;
-
-import sea.nlp.pos.Context;
-
-public class ContextComparator extends Comparator<Context> {
-
-}

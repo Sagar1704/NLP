@@ -6,18 +6,21 @@
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="wordTagMap" key="selection"/>
+		<item value="500" key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
-		<item value="false" key="wholeword"/>
+		<item value="true" key="wholeword"/>
 		<list key="findhistory">
+			<item value="100"/>
+			<item value="start"/>
 			<item value="wordTagMap"/>
 			<item value="&apos;&apos;"/>
 			<item value="&apos;&apos;\w*\b"/>
 			<item value="&apos;&apos;\w+\b"/>
 		</list>
 		<list key="replacehistory">
+			<item value="500"/>
 			<item value="contexts"/>
 		</list>
 	</section>

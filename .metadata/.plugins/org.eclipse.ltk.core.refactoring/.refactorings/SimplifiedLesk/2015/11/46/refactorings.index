@@ -1,0 +1,11 @@
+1447264764800	Delete element
+1447271455355	Rename field 'sense'
+1447271480880	Rename local variable 'sense'
+1447271490658	Rename method 'getSense'
+1447271499917	Rename method 'setSense'
+1447271509160	Rename local variable 'sense'
+1447284249875	Delete element
+1447285283098	Rename resource 'wordsense.txt'
+1447288045310	Rename resource 'bank.txt'
+1447289257808	Rename local variable 'temp1'
+1447289265414	Rename local variable 'temp2'

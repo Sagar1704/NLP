@@ -1,7 +1,0 @@
-package sea.nlp.viterbi;
-
-public class State {
-	private String stateName;
-	private float priorProbability;
-	
-}

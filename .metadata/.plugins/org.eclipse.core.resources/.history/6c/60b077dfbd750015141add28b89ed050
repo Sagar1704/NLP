@@ -1,7 +1,0 @@
-package sea.nlp.viterbi;
-
-import java.util.ArrayList;
-
-public class TrellisState extends State{
-	
-}
